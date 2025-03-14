@@ -14,12 +14,20 @@ function PlayerSearch({ onCompare }) {
       setOptions([]);
       return;
     }
-
+    
     setSearchLoading(true);
     try {
+      console.log('Searching for:', query);
       const response = await fetch(`/api/search?name=${encodeURIComponent(query)}`);
-      if (!response.ok) throw new Error('Failed to search players');
+      
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Search error:', errorText);
+        throw new Error(`Failed to search players: ${response.status} ${errorText}`);
+      }
+      
       const data = await response.json();
+      console.log('Search results:', data);
       setOptions(data);
     } catch (error) {
       console.error('Error searching players:', error);
