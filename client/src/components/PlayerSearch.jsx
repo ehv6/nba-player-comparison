@@ -1,4 +1,3 @@
-// src/components/PlayerSearch.jsx
 import React, { useState, useEffect } from 'react';
 
 function PlayerSearch({ onCompare }) {
@@ -15,7 +14,7 @@ function PlayerSearch({ onCompare }) {
       setOptions([]);
       return;
     }
-    
+
     setSearchLoading(true);
     try {
       const response = await fetch(`/api/search?name=${encodeURIComponent(query)}`);
@@ -49,7 +48,6 @@ function PlayerSearch({ onCompare }) {
   }, [player2Input]);
 
   const selectPlayer = (player, isPlayer1) => {
-    console.log('Player selected:', player); // Add this line to debug
     if (isPlayer1) {
       setPlayer1Selected(player);
       setPlayer1Input(player.first_name + ' ' + player.last_name);
@@ -59,8 +57,6 @@ function PlayerSearch({ onCompare }) {
       setPlayer2Input(player.first_name + ' ' + player.last_name);
       setPlayer2Options([]);
     }
-    console.log('Player1Selected:', player1Selected); // Add this line
-    console.log('Player2Selected:', player2Selected); // Add this line
   };
 
   const handleCompare = () => {
@@ -111,6 +107,22 @@ function PlayerSearch({ onCompare }) {
             </ul>
           )}
         </div>
+      </div>
+
+      {/* ✅ Added Visual Indicator */}
+      <div className="search-status">
+        <p>
+          Player 1:{' '}
+          {player1Selected
+            ? `${player1Selected.first_name} ${player1Selected.last_name} selected`
+            : 'Not selected'}
+        </p>
+        <p>
+          Player 2:{' '}
+          {player2Selected
+            ? `${player2Selected.first_name} ${player2Selected.last_name} selected`
+            : 'Not selected'}
+        </p>
       </div>
       
       <button 
