@@ -49,6 +49,7 @@ function PlayerSearch({ onCompare }) {
   }, [player2Input]);
 
   const selectPlayer = (player, isPlayer1) => {
+    console.log('Player selected:', player); // Add this line to debug
     if (isPlayer1) {
       setPlayer1Selected(player);
       setPlayer1Input(player.first_name + ' ' + player.last_name);
@@ -58,6 +59,8 @@ function PlayerSearch({ onCompare }) {
       setPlayer2Input(player.first_name + ' ' + player.last_name);
       setPlayer2Options([]);
     }
+    console.log('Player1Selected:', player1Selected); // Add this line
+    console.log('Player2Selected:', player2Selected); // Add this line
   };
 
   const handleCompare = () => {
